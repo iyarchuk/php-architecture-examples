@@ -1,0 +1,58 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600">
+    <!-- Title -->
+    <text x="400" y="40" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle">Event Sourcing Architecture</text>
+
+    <!-- Event Store -->
+    <rect x="300" y="100" width="200" height="80" stroke="#00008B" stroke-width="2" fill="white" />
+    <text x="400" y="140" font-family="Arial" font-size="16" fill="#00008B" text-anchor="middle">Event Store</text>
+    <text x="400" y="160" font-family="Arial" font-size="12" fill="#00008B" text-anchor="middle">(Append-only log of events)</text>
+
+    <!-- Command Handlers -->
+    <rect x="100" y="220" width="150" height="60" stroke="#8B0000" stroke-width="2" fill="white" />
+    <text x="175" y="250" font-family="Arial" font-size="16" fill="#8B0000" text-anchor="middle">Command Handlers</text>
+
+    <!-- Aggregates -->
+    <rect x="300" y="220" width="150" height="60" stroke="#006400" stroke-width="2" fill="white" />
+    <text x="375" y="250" font-family="Arial" font-size="16" fill="#006400" text-anchor="middle">Aggregates</text>
+
+    <!-- Projections -->
+    <rect x="500" y="220" width="150" height="60" stroke="#8B008B" stroke-width="2" fill="white" />
+    <text x="575" y="250" font-family="Arial" font-size="16" fill="#8B008B" text-anchor="middle">Projections</text>
+
+    <!-- Read Models -->
+    <rect x="500" y="320" width="150" height="60" stroke="#8B008B" stroke-width="2" fill="white" />
+    <text x="575" y="350" font-family="Arial" font-size="16" fill="#8B008B" text-anchor="middle">Read Models</text>
+
+    <!-- Snapshots -->
+    <rect x="100" y="320" width="150" height="60" stroke="#8B0000" stroke-width="2" fill="white" />
+    <text x="175" y="350" font-family="Arial" font-size="16" fill="#8B0000" text-anchor="middle">Snapshots</text>
+
+    <!-- Arrows -->
+    <line x1="175" y1="220" x2="350" y2="180" stroke="#8B0000" stroke-width="2" />
+    <polygon points="350,180 340,175 340,185" fill="#8B0000" />
+    <text x="250" y="190" font-family="Arial" font-size="12" fill="#8B0000">1. Process commands</text>
+
+    <line x1="375" y1="220" x2="375" y2="180" stroke="#006400" stroke-width="2" />
+    <polygon points="375,180 370,190 380,190" fill="#006400" />
+    <text x="385" y="200" font-family="Arial" font-size="12" fill="#006400">2. Emit events</text>
+
+    <line x1="500" y1="180" x2="575" y2="220" stroke="#8B008B" stroke-width="2" />
+    <polygon points="575,220 565,210 565,220" fill="#8B008B" />
+    <text x="550" y="190" font-family="Arial" font-size="12" fill="#8B008B">3. Build projections</text>
+
+    <line x1="575" y1="280" x2="575" y2="320" stroke="#8B008B" stroke-width="2" />
+    <polygon points="575,320 570,310 580,310" fill="#8B008B" />
+    <text x="585" y="300" font-family="Arial" font-size="12" fill="#8B008B">4. Update read models</text>
+
+    <line x1="175" y1="320" x2="300" y2="180" stroke="#8B0000" stroke-width="2" stroke-dasharray="5,5" />
+    <polygon points="300,180 295,190 305,190" fill="#8B0000" />
+    <text x="200" y="240" font-family="Arial" font-size="12" fill="#8B0000">Optimize rebuilding</text>
+
+    <!-- Description -->
+    <text x="100" y="420" font-family="Arial" font-size="16">Event Sourcing Architecture stores all changes to application state as a sequence of events:</text>
+    <text x="120" y="450" font-family="Arial" font-size="16">- Event Store: Immutable, append-only log of all events</text>
+    <text x="120" y="480" font-family="Arial" font-size="16">- Aggregates: Domain entities that handle commands and emit events</text>
+    <text x="120" y="510" font-family="Arial" font-size="16">- Projections: Processes that build read models from events</text>
+    <text x="120" y="540" font-family="Arial" font-size="16">- Read Models: Optimized views of data for querying</text>
+    <text x="120" y="570" font-family="Arial" font-size="16">- Snapshots: Periodic captures of state to optimize rebuilding</text>
+</svg>

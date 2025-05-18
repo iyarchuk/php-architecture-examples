@@ -1,4 +1,4 @@
-# Architecture Examples
+﻿# Architecture Examples
 
 This directory contains examples of various software architecture patterns. Each subdirectory represents a different architectural approach with its own example implementation.
 
@@ -7,7 +7,10 @@ This directory contains examples of various software architecture patterns. Each
 ### 1. Blackboard Architecture
 A pattern useful for problems for which no deterministic solution strategies are known, consisting of a blackboard (central data structure), knowledge sources, and a control component. It's inspired by the way experts might gather around a blackboard to collaboratively solve a complex problem.
 
-![Blackboard Architecture](https://upload.wikimedia.org/wikipedia/commons/0/0c/Blackboard_architecture.png)
+**Blackboard Architecture Diagram:**
+
+![Blackboard Architecture](https://upload.wikimedia.org/wikipedia/commons/1/18/Blackboad_pattern_system_structure.png))
+<!-- Local SVG file used instead of external URL -->
 
 **Key Characteristics:**
 - Centralized shared knowledge repository (the blackboard)
@@ -62,9 +65,12 @@ A pattern useful for problems for which no deterministic solution strategies are
 ### 2. Clean Architecture
 A software design philosophy introduced by Robert C. Martin (Uncle Bob) that separates concerns into concentric layers, with dependencies pointing inward toward the domain core. It emphasizes separation of concerns and dependency rules to create systems that are testable, maintainable, and independent of frameworks, UI, and databases.
 
-![Clean Architecture](https://upload.wikimedia.org/wikipedia/commons/3/3b/Clean-architecture-Uncle-Bob.jpg)
+**Clean Architecture Diagram:**
 
-Dependencies point inward ↑
+![Clean Architecture](https://upload.wikimedia.org/wikipedia/commons/9/9c/Clean_Architecture_core.svg)
+<!-- Local SVG file used instead of external URL -->
+
+Dependencies point inward в†‘
 
 **Key Layers (from innermost to outermost):**
 - Domain (Entities) - enterprise-wide business rules and entities
@@ -111,7 +117,9 @@ Dependencies point inward ↑
 ### 3. Client-Server Architecture
 A computing model that divides the application into two parts: client (front-end) and server (back-end). The client requests services or resources, and the server provides them.
 
-![Client-Server Architecture](https://upload.wikimedia.org/wikipedia/commons/c/c9/Client-server-model.svg)
+![Client-Server Architecture](https://upload.wikimedia.org/wikipedia/commons/6/69/Client-server_model.svg)
+<!-- Local SVG file used instead of external URL -->
+<!-- Local SVG file used instead of external URL -->
 
 **Key Characteristics:**
 - Clear separation between client and server components
@@ -151,7 +159,12 @@ A computing model that divides the application into two parts: client (front-end
 ### 4. CQRS Architecture
 A pattern that separates read and update operations for a data store to maximize performance, scalability, and security. CQRS divides an application's operations into two distinct categories: commands (write operations that change state) and queries (read operations that return data).
 
-![CQRS Architecture](https://upload.wikimedia.org/wikipedia/commons/e/e8/CQRS_and_Event_Sourcing.png)
+**CQRS Architecture Diagram:**
+
+![CQRS Architecture](https://upload.wikimedia.org/wikipedia/commons/5/5b/CQRS.svg)
+<!-- Local SVG file used instead of external URL -->
+<!-- Local SVG file used instead of external URL -->
+<!-- Note: This image URL may need to be updated if it's not accessible -->
 
 **Key Characteristics:**
 - Separate models for read and write operations
@@ -201,7 +214,12 @@ A pattern that separates read and update operations for a data store to maximize
 ### 5. Domain-Driven Design (DDD)
 An approach to software development that centers the development on programming a domain model with a rich understanding of the processes and rules of a domain. DDD focuses on creating software that closely reflects the business domain it serves.
 
-![Domain-Driven Design](https://upload.wikimedia.org/wikipedia/commons/b/b4/Domain_driven_design_building_blocks.png)
+**Domain-Driven Design Building Blocks:**
+
+![Domain-Driven Design](https://upload.wikimedia.org/wikipedia/commons/2/2c/Clean_Architecture_%2B_DDD%2C_full_application.svg)
+<!-- Local SVG file used instead of external URL -->
+<!-- Local SVG file used instead of external URL -->
+<!-- Note: This image URL may need to be updated if it's not accessible -->
 
 **Key Concepts:**
 - Ubiquitous Language - a common language shared by domain experts and developers
@@ -248,7 +266,12 @@ An approach to software development that centers the development on programming 
 ### 6. Event-Driven Architecture
 A software architecture pattern promoting the production, detection, consumption of, and reaction to events. It focuses on asynchronous communication between decoupled components through events that represent significant changes in state.
 
-![Event-Driven Architecture](https://upload.wikimedia.org/wikipedia/commons/5/53/Event-driven_architecture.svg)
+**Event-Driven Architecture Diagram:**
+
+![Event-Driven Architecture](images/event_driven_architecture.svg)
+<!-- Local SVG file used instead of external URL -->
+<!-- Local SVG file used instead of external URL -->
+<!-- Note: This image URL may need to be updated if it's not accessible -->
 
 **Key Characteristics:**
 - Components communicate through events rather than direct method calls
@@ -302,7 +325,12 @@ A software architecture pattern promoting the production, detection, consumption
 ### 7. Event Sourcing Architecture
 A pattern where the state of the application is determined by a sequence of events rather than just the current state. Instead of storing the current state, event sourcing captures all changes to an application state as a sequence of events.
 
-![Event Sourcing Architecture](https://upload.wikimedia.org/wikipedia/commons/0/09/Event_Sourcing_01.png)
+**Event Sourcing Architecture Diagram:**
+
+![Event Sourcing Architecture](images/event_sourcing_architecture.svg)
+<!-- Local SVG file used instead of external URL -->
+<!-- Local SVG file used instead of external URL -->
+<!-- Note: This image URL may need to be updated if it's not accessible -->
 
 **Key Characteristics:**
 - All changes to application state are stored as a sequence of events
@@ -354,7 +382,9 @@ A pattern where the state of the application is determined by a sequence of even
 ### 8. Hexagonal Architecture (Ports and Adapters)
 An architectural pattern that allows an application to be equally driven by users, programs, automated tests, or batch scripts, and to be developed and tested in isolation from its eventual run-time devices and databases. Also known as "Ports and Adapters," it was introduced by Alistair Cockburn.
 
-![Hexagonal Architecture](https://upload.wikimedia.org/wikipedia/commons/7/75/Hexagonal_Architecture.svg)
+![Hexagonal Architecture](images/hexagonal_architecture.svg)
+<!-- Local SVG file used instead of external URL -->
+<!-- Local SVG file used instead of external URL -->
 
 **Key Components:**
 - Core Application - contains the business logic and domain model
@@ -401,7 +431,12 @@ An architectural pattern that allows an application to be equally driven by user
 ### 9. Layered Architecture
 One of the most common architectural patterns that organizes the application into horizontal layers, with each layer serving a specific role in the application. Communication typically flows from top to bottom layers.
 
-![Layered Architecture](https://upload.wikimedia.org/wikipedia/commons/3/3b/N-Tier_Data_Applications_Overview.png)
+**Layered Architecture Diagram:**
+
+![Layered Architecture](images/layered_architecture.svg)
+<!-- Local SVG file used instead of external URL -->
+<!-- Local SVG file used instead of external URL -->
+<!-- Note: This image URL may need to be updated if it's not accessible -->
 
 **Key Characteristics:**
 - Organized in horizontal layers, each with a specific responsibility
@@ -441,7 +476,12 @@ One of the most common architectural patterns that organizes the application int
 ### 10. Microservices Architecture
 An architectural style that structures an application as a collection of small, loosely coupled services that can be developed, deployed, and scaled independently. Each service focuses on a specific business capability and communicates with other services through well-defined APIs.
 
-![Microservices Architecture](https://upload.wikimedia.org/wikipedia/commons/8/85/Microservices.svg)
+**Microservices Architecture Diagram:**
+
+![Microservices Architecture](images/microservices_architecture.svg)
+<!-- Local SVG file used instead of external URL -->
+<!-- Local SVG file used instead of external URL -->
+<!-- Note: This image URL may need to be updated if it's not accessible -->
 
 **Key Characteristics:**
 - Services are organized around business capabilities
@@ -500,7 +540,12 @@ An architectural style that structures an application as a collection of small, 
 ### 11. Monolithic Architecture
 A software architecture where the entire application is developed as a single unit with tightly coupled components. In this approach, all functions of the application are managed and served in one place.
 
-![Monolithic Architecture](https://upload.wikimedia.org/wikipedia/commons/c/c7/Monolithic_architecture.png)
+**Monolithic Architecture Diagram:**
+
+![Monolithic Architecture](images/monolithic_architecture.svg)
+<!-- Local SVG file used instead of external URL -->
+<!-- Local SVG file used instead of external URL -->
+<!-- Note: This image URL may need to be updated if it's not accessible -->
 
 **Key Characteristics:**
 - Single codebase for the entire application
@@ -539,6 +584,8 @@ A software architecture where the entire application is developed as a single un
 A pattern that separates an application into three main components, promoting separation of concerns and improving maintainability and testability.
 
 ![MVC Architecture](https://upload.wikimedia.org/wikipedia/commons/a/a0/MVC-Process.svg)
+<!-- Local SVG file used instead of external URL -->
+<!-- Local SVG file used instead of external URL -->
 
 **Key Components:**
 - Model (Data and Business Logic) - represents the application's data and business rules
@@ -576,7 +623,9 @@ A pattern that separates an application into three main components, promoting se
 ### 13. MVP Architecture
 A derivation of the MVC pattern that focuses on improving presentation logic and testability by introducing a mediator (the Presenter) between the View and the Model.
 
-![MVP Architecture](https://upload.wikimedia.org/wikipedia/commons/d/dc/Model_View_Presenter_GUI_Design_Pattern.png)
+![MVP Architecture](images/mvp_architecture.svg)
+<!-- Local SVG file used instead of external URL -->
+<!-- Local SVG file used instead of external URL -->
 
 **Key Components:**
 - Model (Data and Business Logic) - contains the data and business rules of the application
@@ -614,7 +663,9 @@ A derivation of the MVC pattern that focuses on improving presentation logic and
 ### 14. MVVM Architecture
 A pattern that facilitates the separation of the development of the graphical user interface from the development of the business logic or back-end logic, with a focus on data binding and UI state management.
 
-![MVVM Architecture](https://upload.wikimedia.org/wikipedia/commons/8/87/MVVMPattern.png)
+![MVVM Architecture](images/mvvm_architecture.svg)
+<!-- Local SVG file used instead of external URL -->
+<!-- Local SVG file used instead of external URL -->
 
 **Key Components:**
 - Model (Data and Business Logic) - represents the application data and business rules
@@ -653,7 +704,10 @@ A pattern that facilitates the separation of the development of the graphical us
 ### 15. N-tier Architecture
 An architecture that divides the application into logical layers (tiers), each performing a specific role. Unlike layered architecture, N-tier specifically refers to physically separated tiers, often running on different servers.
 
-![N-tier Architecture](https://upload.wikimedia.org/wikipedia/commons/5/51/Overview_of_a_three-tier_application.svg)
+![N-tier Architecture](images/n_tier_architecture.svg)
+<!-- Local SVG file used instead of external URL -->
+<!-- Local SVG file used instead of external URL -->
+<!-- Note: This image URL may need to be updated if it's not accessible -->
 
 **Key Characteristics:**
 - Physical separation of tiers (often on different servers)
@@ -702,9 +756,12 @@ An architecture that divides the application into logical layers (tiers), each p
 ### 16. Onion Architecture
 A software architecture pattern that puts the domain model and business logic at the center of the application with infrastructure and UI as external layers. It's similar to Clean Architecture but with a stronger emphasis on the domain model and a slightly different layer organization.
 
-![Onion Architecture](https://upload.wikimedia.org/wikipedia/commons/e/ef/Onion_Architecture.png)
+![Onion Architecture](images/onion_architecture.svg)
+<!-- Local SVG file used instead of external URL -->
+<!-- Local SVG file used instead of external URL -->
+<!-- Note: This image URL may need to be updated if it's not accessible -->
 
-Dependencies point inward ↑
+Dependencies point inward в†‘
 
 **Key Layers (from innermost to outermost):**
 - Domain Model - entities, value objects, and domain services
@@ -750,7 +807,10 @@ Dependencies point inward ↑
 ### 17. Pipe and Filter Architecture
 A pattern that divides a larger processing task into a sequence of smaller, independent processing steps (filters) connected by channels (pipes). Each filter performs a specific transformation on the data it receives and passes the result to the next filter through pipes.
 
-![Pipe and Filter Architecture](https://upload.wikimedia.org/wikipedia/commons/f/f3/Pipe_and_Filter_Pattern.png)
+![Pipe and Filter Architecture](images/pipe_and_filter_architecture.svg)
+<!-- Local SVG file used instead of external URL -->
+<!-- Local SVG file used instead of external URL -->
+<!-- Note: This image URL may need to be updated if it's not accessible -->
 
 **Key Characteristics:**
 - Processing is divided into independent, reusable filters
@@ -794,7 +854,10 @@ A pattern that divides a larger processing task into a sequence of smaller, inde
 ### 18. Reactive Architecture
 An architecture that focuses on asynchronous processing of events and data streams. Reactive systems are designed to be responsive, resilient, elastic, and message-driven, following the principles outlined in the Reactive Manifesto.
 
-![Reactive Architecture](https://upload.wikimedia.org/wikipedia/commons/5/5c/Reactive-streams-overview.png)
+![Reactive Architecture](images/reactive_architecture.svg)
+<!-- Local SVG file used instead of external URL -->
+<!-- Local SVG file used instead of external URL -->
+<!-- Note: This image URL may need to be updated if it's not accessible -->
 
 Responsive | Resilient | Elastic | Message-Driven
 
@@ -854,7 +917,10 @@ Responsive | Resilient | Elastic | Message-Driven
 ### 19. Serverless Architecture
 A software design pattern where applications are hosted by a third-party service, eliminating the need for server software and hardware management by the developer. In serverless, developers focus on writing code while cloud providers handle the infrastructure.
 
-![Serverless Architecture](https://upload.wikimedia.org/wikipedia/commons/a/a4/Serverless_Architecture_using_AWS_Lambda.png)
+![Serverless Architecture](images/serverless_architecture.svg)
+<!-- Local SVG file used instead of external URL -->
+<!-- Local SVG file used instead of external URL -->
+<!-- Note: This image URL may need to be updated if it's not accessible -->
 
 **Key Characteristics:**
 - No server management required
@@ -910,7 +976,10 @@ A software design pattern where applications are hosted by a third-party service
 ### 20. Service-Oriented Architecture (SOA)
 A style of software design where services are provided to other components by application components, through a communication protocol over a network. SOA organizes software systems as collections of loosely coupled, interoperable services.
 
-![Service-Oriented Architecture](https://upload.wikimedia.org/wikipedia/commons/0/06/SOA_Detailed_Diagram.png)
+![Service-Oriented Architecture](images/service_oriented_architecture.svg)
+<!-- Local SVG file used instead of external URL -->
+<!-- Local SVG file used instead of external URL -->
+<!-- Note: This image URL may need to be updated if it's not accessible -->
 
 **Key Characteristics:**
 - Services are autonomous, self-contained units of functionality
@@ -962,7 +1031,10 @@ A style of software design where services are provided to other components by ap
 ### 21. Space-Based Architecture
 A pattern aimed at achieving linear scalability of stateful, high-performance applications by removing the central database constraint. It distributes both processing and data across multiple servers using an in-memory data grid or "tuple space."
 
-![Space-Based Architecture](https://upload.wikimedia.org/wikipedia/commons/c/c1/Space-based-architecture.jpg)
+![Space-Based Architecture](images/space_based_architecture.svg)
+<!-- Local SVG file used instead of external URL -->
+<!-- Local SVG file used instead of external URL -->
+<!-- Note: This image URL may need to be updated if it's not accessible -->
 
 **Key Characteristics:**
 - Distributed in-memory data storage
@@ -1017,7 +1089,9 @@ A pattern aimed at achieving linear scalability of stateful, high-performance ap
 ### 22. Microfrontend Architecture
 An extension of microservices architecture to the frontend, where the interface is divided into independent parts. Microfrontends allow multiple teams to work on a frontend application in parallel, using different technologies if needed.
 
-![Microfrontend Architecture](https://upload.wikimedia.org/wikipedia/commons/6/67/Microfrontend_Architecture.png)
+![Microfrontend Architecture](images/microfrontend_architecture.svg)
+<!-- Local SVG file used instead of external URL -->
+<!-- Local SVG file used instead of external URL -->
 
 **Key Characteristics:**
 - Frontend is split into independently deployable features

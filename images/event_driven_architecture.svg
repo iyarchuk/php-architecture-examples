@@ -1,0 +1,62 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600">
+    <!-- Title -->
+    <text x="400" y="40" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle">Event-Driven Architecture</text>
+
+    <!-- Event Bus/Broker -->
+    <rect x="200" y="200" width="400" height="80" stroke="#00008B" stroke-width="2" fill="white" />
+    <text x="400" y="240" font-family="Arial" font-size="16" fill="#00008B" text-anchor="middle">Event Bus / Message Broker</text>
+
+    <!-- Event Producers -->
+    <rect x="100" y="100" width="150" height="60" stroke="#8B0000" stroke-width="2" fill="white" />
+    <text x="175" y="130" font-family="Arial" font-size="16" fill="#8B0000" text-anchor="middle">Producer 1</text>
+
+    <rect x="300" y="100" width="150" height="60" stroke="#8B0000" stroke-width="2" fill="white" />
+    <text x="375" y="130" font-family="Arial" font-size="16" fill="#8B0000" text-anchor="middle">Producer 2</text>
+
+    <rect x="500" y="100" width="150" height="60" stroke="#8B0000" stroke-width="2" fill="white" />
+    <text x="575" y="130" font-family="Arial" font-size="16" fill="#8B0000" text-anchor="middle">Producer 3</text>
+
+    <!-- Event Consumers -->
+    <rect x="100" y="320" width="150" height="60" stroke="#006400" stroke-width="2" fill="white" />
+    <text x="175" y="350" font-family="Arial" font-size="16" fill="#006400" text-anchor="middle">Consumer 1</text>
+
+    <rect x="300" y="320" width="150" height="60" stroke="#006400" stroke-width="2" fill="white" />
+    <text x="375" y="350" font-family="Arial" font-size="16" fill="#006400" text-anchor="middle">Consumer 2</text>
+
+    <rect x="500" y="320" width="150" height="60" stroke="#006400" stroke-width="2" fill="white" />
+    <text x="575" y="350" font-family="Arial" font-size="16" fill="#006400" text-anchor="middle">Consumer 3</text>
+
+    <!-- Arrows from Producers to Event Bus -->
+    <line x1="175" y1="160" x2="300" y2="200" stroke="#8B0000" stroke-width="2" />
+    <polygon points="300,200 290,190 290,200" fill="#8B0000" />
+    <text x="220" y="180" font-family="Arial" font-size="12" fill="#8B0000">Events</text>
+
+    <line x1="375" y1="160" x2="375" y2="200" stroke="#8B0000" stroke-width="2" />
+    <polygon points="375,200 370,190 380,190" fill="#8B0000" />
+    <text x="385" y="180" font-family="Arial" font-size="12" fill="#8B0000">Events</text>
+
+    <line x1="575" y1="160" x2="500" y2="200" stroke="#8B0000" stroke-width="2" />
+    <polygon points="500,200 510,190 510,200" fill="#8B0000" />
+    <text x="550" y="180" font-family="Arial" font-size="12" fill="#8B0000">Events</text>
+
+    <!-- Arrows from Event Bus to Consumers -->
+    <line x1="300" y1="280" x2="175" y2="320" stroke="#006400" stroke-width="2" />
+    <polygon points="175,320 185,310 185,320" fill="#006400" />
+    <text x="220" y="300" font-family="Arial" font-size="12" fill="#006400">Subscribe</text>
+
+    <line x1="375" y1="280" x2="375" y2="320" stroke="#006400" stroke-width="2" />
+    <polygon points="375,320 370,310 380,310" fill="#006400" />
+    <text x="385" y="300" font-family="Arial" font-size="12" fill="#006400">Subscribe</text>
+
+    <line x1="500" y1="280" x2="575" y2="320" stroke="#006400" stroke-width="2" />
+    <polygon points="575,320 565,310 565,320" fill="#006400" />
+    <text x="550" y="300" font-family="Arial" font-size="12" fill="#006400">Subscribe</text>
+
+    <!-- Description -->
+    <text x="100" y="420" font-family="Arial" font-size="16">Event-Driven Architecture focuses on the production, detection, and consumption of events:</text>
+    <text x="120" y="450" font-family="Arial" font-size="16">- Event Producers: Components that generate events</text>
+    <text x="120" y="480" font-family="Arial" font-size="16">- Event Bus/Broker: Middleware that routes events between producers and consumers</text>
+    <text x="120" y="510" font-family="Arial" font-size="16">- Event Consumers: Components that react to events</text>
+    <text x="120" y="540" font-family="Arial" font-size="16">- Loose coupling: Components communicate through events rather than direct method calls</text>
+    <text x="120" y="570" font-family="Arial" font-size="16">- Asynchronous: Events are processed asynchronously</text>
+</svg>

@@ -1,0 +1,60 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600">
+    <!-- Title -->
+    <text x="400" y="40" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle">Hexagonal Architecture</text>
+
+    <!-- Hexagon for Domain -->
+    <polygon points="400,150 500,200 500,300 400,350 300,300 300,200" 
+             stroke="#00008B" stroke-width="2" fill="white" />
+    <text x="400" y="260" font-family="Arial" font-size="16" fill="#00008B" text-anchor="middle">Domain</text>
+    <text x="400" y="280" font-family="Arial" font-size="12" fill="#00008B" text-anchor="middle">Business Logic</text>
+
+    <!-- Primary Adapters (left) -->
+    <rect x="100" y="150" width="150" height="60" stroke="#8B0000" stroke-width="2" fill="white" />
+    <text x="175" y="180" font-family="Arial" font-size="16" fill="#8B0000" text-anchor="middle">UI Adapter</text>
+
+    <rect x="100" y="230" width="150" height="60" stroke="#8B0000" stroke-width="2" fill="white" />
+    <text x="175" y="260" font-family="Arial" font-size="16" fill="#8B0000" text-anchor="middle">API Adapter</text>
+
+    <rect x="100" y="310" width="150" height="60" stroke="#8B0000" stroke-width="2" fill="white" />
+    <text x="175" y="340" font-family="Arial" font-size="16" fill="#8B0000" text-anchor="middle">CLI Adapter</text>
+
+    <!-- Secondary Adapters (right) -->
+    <rect x="550" y="150" width="150" height="60" stroke="#006400" stroke-width="2" fill="white" />
+    <text x="625" y="180" font-family="Arial" font-size="16" fill="#006400" text-anchor="middle">Database Adapter</text>
+
+    <rect x="550" y="230" width="150" height="60" stroke="#006400" stroke-width="2" fill="white" />
+    <text x="625" y="260" font-family="Arial" font-size="16" fill="#006400" text-anchor="middle">Messaging Adapter</text>
+
+    <rect x="550" y="310" width="150" height="60" stroke="#006400" stroke-width="2" fill="white" />
+    <text x="625" y="340" font-family="Arial" font-size="16" fill="#006400" text-anchor="middle">External API Adapter</text>
+
+    <!-- Ports (interfaces) -->
+    <text x="270" y="180" font-family="Arial" font-size="12" fill="#000000" text-anchor="middle">Primary Ports</text>
+    <text x="530" y="180" font-family="Arial" font-size="12" fill="#000000" text-anchor="middle">Secondary Ports</text>
+
+    <!-- Arrows -->
+    <line x1="250" y1="180" x2="300" y2="200" stroke="#8B0000" stroke-width="2" />
+    <polygon points="300,200 290,190 290,200" fill="#8B0000" />
+
+    <line x1="250" y1="260" x2="300" y2="250" stroke="#8B0000" stroke-width="2" />
+    <polygon points="300,250 290,245 290,255" fill="#8B0000" />
+
+    <line x1="250" y1="340" x2="300" y2="300" stroke="#8B0000" stroke-width="2" />
+    <polygon points="300,300 290,295 290,305" fill="#8B0000" />
+
+    <line x1="500" y1="200" x2="550" y2="180" stroke="#006400" stroke-width="2" />
+    <polygon points="550,180 540,175 540,185" fill="#006400" />
+
+    <line x1="500" y1="250" x2="550" y2="260" stroke="#006400" stroke-width="2" />
+    <polygon points="550,260 540,255 540,265" fill="#006400" />
+
+    <line x1="500" y1="300" x2="550" y2="340" stroke="#006400" stroke-width="2" />
+    <polygon points="550,340 540,335 540,345" fill="#006400" />
+
+    <!-- Description -->
+    <text x="100" y="420" font-family="Arial" font-size="16">Hexagonal Architecture (Ports and Adapters) isolates the application core:</text>
+    <text x="120" y="450" font-family="Arial" font-size="16">- Domain: Contains the business logic and domain model</text>
+    <text x="120" y="480" font-family="Arial" font-size="16">- Ports: Interfaces that define how the application interacts with the outside world</text>
+    <text x="120" y="510" font-family="Arial" font-size="16">- Primary Adapters: Drive the application (UI, API, tests)</text>
+    <text x="120" y="540" font-family="Arial" font-size="16">- Secondary Adapters: Driven by the application (database, messaging)</text>
+</svg>

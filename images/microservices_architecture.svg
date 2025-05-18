@@ -1,0 +1,55 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600">
+    <!-- Title -->
+    <text x="400" y="40" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle">Microservices Architecture</text>
+
+    <!-- API Gateway -->
+    <rect x="300" y="100" width="200" height="60" stroke="#000000" stroke-width="2" fill="white" />
+    <text x="400" y="130" font-family="Arial" font-size="16" fill="#000000" text-anchor="middle">API Gateway</text>
+
+    <!-- Microservices -->
+    <rect x="100" y="200" width="150" height="100" stroke="#8B0000" stroke-width="2" fill="white" />
+    <text x="175" y="230" font-family="Arial" font-size="16" fill="#8B0000" text-anchor="middle">User Service</text>
+    <rect x="120" y="250" width="110" height="30" stroke="#8B0000" stroke-width="1" fill="white" />
+    <text x="175" y="270" font-family="Arial" font-size="12" fill="#8B0000" text-anchor="middle">Database</text>
+
+    <rect x="300" y="200" width="150" height="100" stroke="#006400" stroke-width="2" fill="white" />
+    <text x="375" y="230" font-family="Arial" font-size="16" fill="#006400" text-anchor="middle">Order Service</text>
+    <rect x="320" y="250" width="110" height="30" stroke="#006400" stroke-width="1" fill="white" />
+    <text x="375" y="270" font-family="Arial" font-size="12" fill="#006400" text-anchor="middle">Database</text>
+
+    <rect x="500" y="200" width="150" height="100" stroke="#00008B" stroke-width="2" fill="white" />
+    <text x="575" y="230" font-family="Arial" font-size="16" fill="#00008B" text-anchor="middle">Product Service</text>
+    <rect x="520" y="250" width="110" height="30" stroke="#00008B" stroke-width="1" fill="white" />
+    <text x="575" y="270" font-family="Arial" font-size="12" fill="#00008B" text-anchor="middle">Database</text>
+
+    <!-- Message Broker -->
+    <rect x="300" y="350" width="200" height="60" stroke="#8B008B" stroke-width="2" fill="white" />
+    <text x="400" y="380" font-family="Arial" font-size="16" fill="#8B008B" text-anchor="middle">Message Broker</text>
+
+    <!-- Arrows from API Gateway to Services -->
+    <line x1="350" y1="160" x2="175" y2="200" stroke="black" stroke-width="2" />
+    <polygon points="175,200 185,190 185,200" fill="black" />
+
+    <line x1="400" y1="160" x2="375" y2="200" stroke="black" stroke-width="2" />
+    <polygon points="375,200 370,190 380,190" fill="black" />
+
+    <line x1="450" y1="160" x2="575" y2="200" stroke="black" stroke-width="2" />
+    <polygon points="575,200 565,190 565,200" fill="black" />
+
+    <!-- Arrows between Services and Message Broker -->
+    <line x1="175" y1="300" x2="300" y2="350" stroke="#8B0000" stroke-width="2" stroke-dasharray="5,5" />
+    <polygon points="300,350 290,340 290,350" fill="#8B0000" />
+
+    <line x1="375" y1="300" x2="375" y2="350" stroke="#006400" stroke-width="2" stroke-dasharray="5,5" />
+    <polygon points="375,350 370,340 380,340" fill="#006400" />
+
+    <line x1="575" y1="300" x2="500" y2="350" stroke="#00008B" stroke-width="2" stroke-dasharray="5,5" />
+    <polygon points="500,350 510,340 510,350" fill="#00008B" />
+
+    <!-- Description -->
+    <text x="100" y="450" font-family="Arial" font-size="16">Microservices Architecture structures an application as a collection of loosely coupled services:</text>
+    <text x="120" y="480" font-family="Arial" font-size="16">- Each service focuses on a specific business capability</text>
+    <text x="120" y="510" font-family="Arial" font-size="16">- Services are independently deployable and scalable</text>
+    <text x="120" y="540" font-family="Arial" font-size="16">- Each service has its own database</text>
+    <text x="120" y="570" font-family="Arial" font-size="16">- Services communicate via APIs or messaging</text>
+</svg>

@@ -1,0 +1,26 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600">
+    <!-- Title -->
+    <text x="400" y="40" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle">MVVM Architecture</text>
+
+    <!-- Main component -->
+    <rect x="300" y="150" width="200" height="100" stroke="#00008B" stroke-width="2" fill="white" />
+    <text x="400" y="200" font-family="Arial" font-size="16" fill="#00008B" text-anchor="middle">Main Component</text>
+
+    <!-- Secondary components -->
+    <rect x="100" y="300" width="200" height="100" stroke="#006400" stroke-width="2" fill="white" />
+    <text x="200" y="350" font-family="Arial" font-size="16" fill="#006400" text-anchor="middle">Component A</text>
+
+    <rect x="500" y="300" width="200" height="100" stroke="#8B0000" stroke-width="2" fill="white" />
+    <text x="600" y="350" font-family="Arial" font-size="16" fill="#8B0000" text-anchor="middle">Component B</text>
+
+    <!-- Arrows -->
+    <line x1="200" y1="300" x2="400" y2="250" stroke="black" stroke-width="2" />
+    <polygon points="400,250 390,240 395,255" fill="black" />
+
+    <line x1="600" y1="300" x2="400" y2="250" stroke="black" stroke-width="2" />
+    <polygon points="400,250 410,240 405,255" fill="black" />
+
+    <!-- Description -->
+    <text x="100" y="450" font-family="Arial" font-size="16">This is a placeholder diagram for MVVM Architecture.</text>
+    <text x="100" y="480" font-family="Arial" font-size="16">Please replace with a proper diagram that illustrates the key components and relationships.</text>
+</svg>
