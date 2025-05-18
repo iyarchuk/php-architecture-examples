@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microfrontend Example - Container</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav {
+            background-color: #f1f1f1;
+            padding: 0.5rem;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        nav li {
+            margin-right: 1rem;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            padding: 0.5rem;
+        }
+        nav a:hover {
+            background-color: #ddd;
+        }
+        main {
+            padding: 1rem;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        #microfrontend-container {
+            min-height: 400px;
+            border: 1px solid #ddd;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Microfrontend Example</h1>
+        <div id="user-info">
+            <span id="username">Guest</span>
+            <button id="login-button">Login</button>
+        </div>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#" data-route="product-catalog">Product Catalog</a></li>
+            <li><a href="#" data-route="shopping-cart">Shopping Cart</a></li>
+            <li><a href="#" data-route="user-profile">User Profile</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <div id="microfrontend-container">
+            <!-- Microfrontends will be loaded here -->
+            <p>Loading...</p>
+        </div>
+    </main>
+    
+    <footer>
+        <p>Microfrontend Architecture Example &copy; 2025</p>
+    </footer>
+
+    <!-- Load the container application scripts -->
+    <script src="app.js"></script>
+    <script src="router.js"></script>
+    <script>
+        // Initialize the container application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize the router
+            const router = new Router();
+            
+            // Initialize the container app
+            const app = new ContainerApp(router);
+            app.init();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microfrontend Architecture Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            margin-top: 0;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .code {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        .demo-container {
+            border: 2px solid #007bff;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        .microfrontend {
+            border: 1px dashed #ccc;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+        .microfrontend-header {
+            background-color: #f1f1f1;
+            padding: 5px 10px;
+            margin: -15px -15px 15px -15px;
+            border-bottom: 1px dashed #ccc;
+            border-radius: 5px 5px 0 0;
+            font-weight: bold;
+        }
+        .button {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .button.secondary {
+            background-color: #6c757d;
+        }
+        .button.secondary:hover {
+            background-color: #5a6268;
+        }
+        .event-log {
+            height: 200px;
+            overflow-y: auto;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: monospace;
+            margin-top: 20px;
+        }
+        .event-item {
+            margin-bottom: 5px;
+            padding: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        .event-item.publish {
+            color: #dc3545;
+        }
+        .event-item.subscribe {
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Microfrontend Architecture Example</h1>
+    </header>
+
+    <div class="container">
+        <div class="section">
+            <h2>What is Microfrontend Architecture?</h2>
+            <p>
+                Microfrontend Architecture extends the concepts of microservices to the frontend world. 
+                It structures a web application as a collection of small, loosely coupled frontend applications 
+                that are independently deployable, organized around business domains, and owned by autonomous teams.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>Key Components</h2>
+            <ul>
+                <li><strong>Container Application:</strong> Provides the application shell and manages microfrontends</li>
+                <li><strong>Microfrontends:</strong> Independent frontend applications focused on specific business domains</li>
+                <li><strong>Shared Libraries:</strong> Common UI components and utilities used across microfrontends</li>
+                <li><strong>Communication Layer:</strong> Mechanisms for microfrontends to communicate with each other</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Live Demo</h2>
+            <p>This demo shows how different microfrontends can work together in a single application:</p>
+            
+            <div class="demo-container">
+                <!-- Container Application -->
+                <div class="microfrontend">
+                    <div class="microfrontend-header">Container Application</div>
+                    <div>
+                        <h3>E-commerce Portal</h3>
+                        <div id="user-info">
+                            Welcome, <span id="username">Guest</span>
+                            <button id="login-button" class="button">Login</button>
+                        </div>
+                        <div id="navigation">
+                            <button id="nav-products" class="button">Products</button>
+                            <button id="nav-cart" class="button">Shopping Cart</button>
+                            <button id="nav-profile" class="button">User Profile</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Microfrontend -->
+                <div id="active-microfrontend" class="microfrontend">
+                    <div class="microfrontend-header">Product Catalog Microfrontend</div>
+                    <div id="microfrontend-content">
+                        <h3>Featured Products</h3>
+                        <div class="product">
+                            <h4>Smartphone X</h4>
+                            <p>Latest smartphone with amazing features</p>
+                            <p>Price: $999</p>
+                            <button class="button add-to-cart" data-product-id="1" data-product-name="Smartphone X" data-product-price="999">Add to Cart</button>
+                        </div>
+                        <div class="product">
+                            <h4>Laptop Pro</h4>
+                            <p>Powerful laptop for professionals</p>
+                            <p>Price: $1499</p>
+                            <button class="button add-to-cart" data-product-id="2" data-product-name="Laptop Pro" data-product-price="1499">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event Log -->
+                <h3>Event Log (Communication between Microfrontends)</h3>
+                <div id="event-log" class="event-log"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Code Structure</h2>
+            <div class="code">microfrontend_architecture/
+├── Container/                # Container application
+│   ├── index.html            # Entry point HTML
+│   ├── app.js                # Main container application
+│   └── router.js             # Routing logic
+├── Microfrontends/           # Individual microfrontends
+│   ├── ProductCatalog/       # Product catalog microfrontend
+│   ├── ShoppingCart/         # Shopping cart microfrontend
+│   └── UserProfile/          # User profile microfrontend
+├── SharedLibraries/          # Shared libraries and components
+│   ├── UIComponents/         # Shared UI components
+│   └── Utils/                # Shared utilities
+├── CommunicationLayer/       # Communication mechanisms
+│   ├── EventBus.js           # Custom event bus
+│   └── StateManager.js       # Shared state management
+└── example.html              # This example file</div>
+        </div>
+
+        <div class="section">
+            <h2>Integration Approaches</h2>
+            <p>This example demonstrates client-side composition, where microfrontends are loaded and composed in the browser.</p>
+            <p>Other approaches include:</p>
+            <ul>
+                <li><strong>Server-Side Composition:</strong> Microfrontends are composed on the server</li>
+                <li><strong>Edge-Side Composition:</strong> Microfrontends are composed at the edge (CDN or reverse proxy)</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Simple EventBus implementation for the demo
+        const EventBus = {
+            events: {},
+            subscribe: function(event, callback) {
+                if (!this.events[event]) {
+                    this.events[event] = [];
+                }
+                this.events[event].push(callback);
+                logEvent('subscribe', `Subscribed to event: ${event}`);
+                return () => {
+                    this.events[event] = this.events[event].filter(cb => cb !== callback);
+                };
+            },
+            publish: function(event, data) {
+                logEvent('publish', `Published event: ${event}`, data);
+                if (!this.events[event]) {
+                    return;
+                }
+                this.events[event].forEach(callback => {
+                    try {
+                        callback(data);
+                    } catch (error) {
+                        console.error(`Error in subscriber callback for event ${event}:`, error);
+                    }
+                });
+            }
+        };
+
+        // Simple StateManager implementation for the demo
+        const StateManager = {
+            state: {
+                user: {
+                    isLoggedIn: false,
+                    username: 'Guest'
+                },
+                cart: {
+                    items: [],
+                    total: 0
+                },
+                currentView: 'products'
+            },
+            getState: function(key) {
+                return key ? this.state[key] : { ...this.state };
+            },
+            setState: function(key, value) {
+                this.state[key] = value;
+                EventBus.publish(`state:changed:${key}`, value);
+            }
+        };
+
+        // Log events to the event log
+        function logEvent(type, message, data) {
+            const eventLog = document.getElementById('event-log');
+            const eventItem = document.createElement('div');
+            eventItem.className = `event-item ${type}`;
+            eventItem.textContent = message;
+            if (data) {
+                eventItem.textContent += ` - ${JSON.stringify(data)}`;
+            }
+            eventLog.prepend(eventItem);
+        }
+
+        // Initialize the demo
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up navigation
+            document.getElementById('nav-products').addEventListener('click', function() {
+                showMicrofrontend('products');
+            });
+            
+            document.getElementById('nav-cart').addEventListener('click', function() {
+                showMicrofrontend('cart');
+            });
+            
+            document.getElementById('nav-profile').addEventListener('click', function() {
+                showMicrofrontend('profile');
+            });
+            
+            // Set up login button
+            document.getElementById('login-button').addEventListener('click', function() {
+                const user = StateManager.getState('user');
+                if (user.isLoggedIn) {
+                    // Logout
+                    StateManager.setState('user', {
+                        isLoggedIn: false,
+                        username: 'Guest'
+                    });
+                    this.textContent = 'Login';
+                } else {
+                    // Login
+                    StateManager.setState('user', {
+                        isLoggedIn: true,
+                        username: 'John Doe'
+                    });
+                    this.textContent = 'Logout';
+                }
+            });
+            
+            // Subscribe to user state changes
+            EventBus.subscribe('state:changed:user', function(userData) {
+                document.getElementById('username').textContent = userData.username;
+                
+                // If we're on the profile page, update it
+                if (StateManager.getState('currentView') === 'profile') {
+                    showMicrofrontend('profile');
+                }
+            });
+            
+            // Subscribe to cart state changes
+            EventBus.subscribe('state:changed:cart', function(cartData) {
+                // If we're on the cart page, update it
+                if (StateManager.getState('currentView') === 'cart') {
+                    showMicrofrontend('cart');
+                }
+            });
+            
+            // Set up add to cart buttons
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('add-to-cart')) {
+                    const productId = e.target.getAttribute('data-product-id');
+                    const productName = e.target.getAttribute('data-product-name');
+                    const productPrice = parseFloat(e.target.getAttribute('data-product-price'));
+                    
+                    // Add to cart
+                    const cart = StateManager.getState('cart');
+                    const existingItem = cart.items.find(item => item.id === productId);
+                    
+                    if (existingItem) {
+                        existingItem.quantity += 1;
+                    } else {
+                        cart.items.push({
+                            id: productId,
+                            name: productName,
+                            price: productPrice,
+                            quantity: 1
+                        });
+                    }
+                    
+                    // Update cart total
+                    cart.total = cart.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+                    
+                    // Update state
+                    StateManager.setState('cart', cart);
+                    
+                    // Show notification
+                    alert(`Added ${productName} to cart`);
+                }
+            });
+            
+            // Initial view
+            showMicrofrontend('products');
+        });
+        
+        // Show a specific microfrontend
+        function showMicrofrontend(view) {
+            const microfrontendHeader = document.querySelector('.microfrontend-header');
+            const microfrontendContent = document.getElementById('microfrontend-content');
+            
+            // Update current view in state
+            StateManager.setState('currentView', view);
+            
+            // Update active button
+            document.querySelectorAll('#navigation button').forEach(button => {
+                button.classList.remove('secondary');
+            });
+            
+            let content = '';
+            
+            switch (view) {
+                case 'products':
+                    microfrontendHeader.textContent = 'Product Catalog Microfrontend';
+                    document.getElementById('nav-products').classList.add('secondary');
+                    
+                    content = `
+                        <h3>Featured Products</h3>
+                        <div class="product">
+                            <h4>Smartphone X</h4>
+                            <p>Latest smartphone with amazing features</p>
+                            <p>Price: $999</p>
+                            <button class="button add-to-cart" data-product-id="1" data-product-name="Smartphone X" data-product-price="999">Add to Cart</button>
+                        </div>
+                        <div class="product">
+                            <h4>Laptop Pro</h4>
+                            <p>Powerful laptop for professionals</p>
+                            <p>Price: $1499</p>
+                            <button class="button add-to-cart" data-product-id="2" data-product-name="Laptop Pro" data-product-price="1499">Add to Cart</button>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'cart':
+                    microfrontendHeader.textContent = 'Shopping Cart Microfrontend';
+                    document.getElementById('nav-cart').classList.add('secondary');
+                    
+                    const cart = StateManager.getState('cart');
+                    
+                    if (cart.items.length === 0) {
+                        content = `
+                            <h3>Your Shopping Cart</h3>
+                            <p>Your cart is empty</p>
+                            <button class="button" id="continue-shopping">Continue Shopping</button>
+                        `;
+                    } else {
+                        content = `
+                            <h3>Your Shopping Cart</h3>
+                            <div class="cart-items">
+                        `;
+                        
+                        cart.items.forEach(item => {
+                            content += `
+                                <div class="cart-item">
+                                    <h4>${item.name}</h4>
+                                    <p>Price: $${item.price}</p>
+                                    <p>Quantity: ${item.quantity}</p>
+                                    <p>Subtotal: $${item.price * item.quantity}</p>
+                                </div>
+                            `;
+                        });
+                        
+                        content += `
+                            </div>
+                            <h4>Total: $${cart.total}</h4>
+                            <button class="button" id="checkout">Checkout</button>
+                            <button class="button secondary" id="continue-shopping">Continue Shopping</button>
+                        `;
+                    }
+                    break;
+                    
+                case 'profile':
+                    microfrontendHeader.textContent = 'User Profile Microfrontend';
+                    document.getElementById('nav-profile').classList.add('secondary');
+                    
+                    const user = StateManager.getState('user');
+                    
+                    if (user.isLoggedIn) {
+                        content = `
+                            <h3>User Profile</h3>
+                            <div class="user-details">
+                                <p><strong>Username:</strong> ${user.username}</p>
+                                <p><strong>Email:</strong> john.doe@example.com</p>
+                            </div>
+                            <h4>Order History</h4>
+                            <p>No orders yet</p>
+                        `;
+                    } else {
+                        content = `
+                            <h3>User Profile</h3>
+                            <p>Please log in to view your profile</p>
+                            <button class="button" id="profile-login">Login</button>
+                        `;
+                    }
+                    break;
+            }
+            
+            microfrontendContent.innerHTML = content;
+            
+            // Set up continue shopping button
+            const continueShoppingButton = document.getElementById('continue-shopping');
+            if (continueShoppingButton) {
+                continueShoppingButton.addEventListener('click', function() {
+                    showMicrofrontend('products');
+                });
+            }
+            
+            // Set up profile login button
+            const profileLoginButton = document.getElementById('profile-login');
+            if (profileLoginButton) {
+                profileLoginButton.addEventListener('click', function() {
+                    StateManager.setState('user', {
+                        isLoggedIn: true,
+                        username: 'John Doe'
+                    });
+                    document.getElementById('login-button').textContent = 'Logout';
+                });
+            }
+            
+            // Set up checkout button
+            const checkoutButton = document.getElementById('checkout');
+            if (checkoutButton) {
+                checkoutButton.addEventListener('click', function() {
+                    alert('Checkout functionality would be implemented here');
+                });
+            }
+        }
+    </script>
+</body>
+</html>

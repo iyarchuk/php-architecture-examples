@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile Microfrontend</title>
+    <style>
+        .user-profile {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .profile-header {
+            margin-bottom: 30px;
+        }
+        
+        .profile-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+        
+        .profile-section h3 {
+            margin-top: 0;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .profile-field {
+            margin-bottom: 15px;
+            display: flex;
+        }
+        
+        .profile-field-label {
+            font-weight: bold;
+            width: 150px;
+        }
+        
+        .profile-field-value {
+            flex: 1;
+        }
+        
+        .profile-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .login-form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .order-history {
+            margin-top: 20px;
+        }
+        
+        .order {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            padding: 15px;
+        }
+        
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .order-items {
+            margin-top: 10px;
+        }
+        
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .primary-button {
+            background-color: #007bff;
+            color: white;
+        }
+        
+        .primary-button:hover {
+            background-color: #0069d9;
+        }
+        
+        .secondary-button {
+            background-color: #6c757d;
+            color: white;
+        }
+        
+        .secondary-button:hover {
+            background-color: #5a6268;
+        }
+        
+        .danger-button {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .danger-button:hover {
+            background-color: #c82333;
+        }
+        
+        .notification {
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        
+        .notification.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .notification.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div id="user-profile-container"></div>
+    
+    <script>
+        // UserProfile Microfrontend
+        (function() {
+            // Mock event bus (will be replaced by the container's event bus)
+            const mockEventBus = {
+                publish: function(event, data) {
+                    console.log('Event published:', event, data);
+                },
+                subscribe: function(event, callback) {
+                    console.log('Subscribed to event:', event);
+                    return function() {
+                        console.log('Unsubscribed from event:', event);
+                    };
+                }
+            };
+            
+            // Mock state manager (will be replaced by the container's state manager)
+            const mockStateManager = {
+                getState: function(key) {
+                    return key === 'user' ? { isLoggedIn: false, username: 'Guest' } : {};
+                },
+                setState: function(key, value) {
+                    console.log('State updated:', key, value);
+                }
+            };
+            
+            // Sample order data
+            const sampleOrders = [
+                {
+                    id: 'ORD-1001',
+                    date: '2025-05-15',
+                    status: 'Delivered',
+                    total: 1298,
+                    items: [
+                        { name: 'Smartphone X', quantity: 1, price: 999 },
+                        { name: 'Phone Case', quantity: 1, price: 29 },
+                        { name: 'Screen Protector', quantity: 1, price: 19.99 },
+                        { name: 'Wireless Charger', quantity: 1, price: 49.99 }
+                    ]
+                },
+                {
+                    id: 'ORD-1002',
+                    date: '2025-04-22',
+                    status: 'Delivered',
+                    total: 1499,
+                    items: [
+                        { name: 'Laptop Pro', quantity: 1, price: 1499 }
+                    ]
+                },
+                {
+                    id: 'ORD-1003',
+                    date: '2025-05-10',
+                    status: 'Processing',
+                    total: 348,
+                    items: [
+                        { name: 'Wireless Headphones', quantity: 1, price: 299 },
+                        { name: 'Headphone Case', quantity: 1, price: 49 }
+                    ]
+                }
+            ];
+            
+            // UserProfile component
+            function UserProfile(eventBus, stateManager) {
+                this.eventBus = eventBus || mockEventBus;
+                this.stateManager = stateManager || mockStateManager;
+                this.user = this.stateManager.getState('user') || { isLoggedIn: false, username: 'Guest' };
+                this.eventHandlers = {};
+                this.notification = null;
+            }
+            
+            // Render the user profile
+            UserProfile.prototype.render = function(container) {
+                // Create the user profile container
+                const profileContainer = document.createElement('div');
+                profileContainer.className = 'user-profile';
+                
+                // Create the header
+                const header = document.createElement('div');
+                header.className = 'profile-header';
+                
+                const title = document.createElement('h2');
+                title.textContent = 'User Profile';
+                header.appendChild(title);
+                
+                // Add notification area
+                this.notification = document.createElement('div');
+                this.notification.className = 'notification';
+                this.notification.style.display = 'none';
+                header.appendChild(this.notification);
+                
+                profileContainer.appendChild(header);
+                
+                // Check if user is logged in
+                if (this.user.isLoggedIn) {
+                    // Render user profile
+                    this.renderUserProfile(profileContainer);
+                } else {
+                    // Render login form
+                    this.renderLoginForm(profileContainer);
+                }
+                
+                // Clear the container and append the profile
+                container.innerHTML = '';
+                container.appendChild(profileContainer);
+                
+                // Subscribe to events
+                this.subscribeToEvents();
+            };
+            
+            // Render user profile
+            UserProfile.prototype.renderUserProfile = function(container) {
+                // Personal information section
+                const personalInfo = document.createElement('div');
+                personalInfo.className = 'profile-section';
+                
+                const personalInfoTitle = document.createElement('h3');
+                personalInfoTitle.textContent = 'Personal Information';
+                personalInfo.appendChild(personalInfoTitle);
+                
+                // Add profile fields
+                const fields = [
+                    { label: 'Username', value: this.user.username },
+                    { label: 'Email', value: this.user.email || 'john.doe@example.com' },
+                    { label: 'Full Name', value: this.user.fullName || 'John Doe' },
+                    { label: 'Phone', value: this.user.phone || '+1 (555) 123-4567' }
+                ];
+                
+                fields.forEach(field => {
+                    const fieldElement = document.createElement('div');
+                    fieldElement.className = 'profile-field';
+                    
+                    const label = document.createElement('div');
+                    label.className = 'profile-field-label';
+                    label.textContent = field.label + ':';
+                    
+                    const value = document.createElement('div');
+                    value.className = 'profile-field-value';
+                    value.textContent = field.value;
+                    
+                    fieldElement.appendChild(label);
+                    fieldElement.appendChild(value);
+                    personalInfo.appendChild(fieldElement);
+                });
+                
+                // Add profile actions
+                const profileActions = document.createElement('div');
+                profileActions.className = 'profile-actions';
+                
+                const editProfileButton = document.createElement('button');
+                editProfileButton.className = 'primary-button';
+                editProfileButton.textContent = 'Edit Profile';
+                editProfileButton.addEventListener('click', this.editProfile.bind(this));
+                
+                const changePasswordButton = document.createElement('button');
+                changePasswordButton.className = 'secondary-button';
+                changePasswordButton.textContent = 'Change Password';
+                changePasswordButton.addEventListener('click', this.changePassword.bind(this));
+                
+                const logoutButton = document.createElement('button');
+                logoutButton.className = 'danger-button';
+                logoutButton.textContent = 'Logout';
+                logoutButton.addEventListener('click', this.logout.bind(this));
+                
+                profileActions.appendChild(editProfileButton);
+                profileActions.appendChild(changePasswordButton);
+                profileActions.appendChild(logoutButton);
+                personalInfo.appendChild(profileActions);
+                
+                container.appendChild(personalInfo);
+                
+                // Order history section
+                const orderHistory = document.createElement('div');
+                orderHistory.className = 'profile-section';
+                
+                const orderHistoryTitle = document.createElement('h3');
+                orderHistoryTitle.textContent = 'Order History';
+                orderHistory.appendChild(orderHistoryTitle);
+                
+                // Get orders (in a real app, this would come from an API)
+                const orders = sampleOrders;
+                
+                if (orders.length === 0) {
+                    const noOrders = document.createElement('p');
+                    noOrders.textContent = 'No orders found.';
+                    orderHistory.appendChild(noOrders);
+                } else {
+                    const ordersList = document.createElement('div');
+                    ordersList.className = 'order-history';
+                    
+                    orders.forEach(order => {
+                        const orderElement = this.createOrderElement(order);
+                        ordersList.appendChild(orderElement);
+                    });
+                    
+                    orderHistory.appendChild(ordersList);
+                }
+                
+                container.appendChild(orderHistory);
+            };
+            
+            // Create an order element
+            UserProfile.prototype.createOrderElement = function(order) {
+                const orderElement = document.createElement('div');
+                orderElement.className = 'order';
+                
+                const orderHeader = document.createElement('div');
+                orderHeader.className = 'order-header';
+                
+                const orderInfo = document.createElement('div');
+                orderInfo.innerHTML = `
+                    <div><strong>Order ID:</strong> ${order.id}</div>
+                    <div><strong>Date:</strong> ${order.date}</div>
+                `;
+                
+                const orderStatus = document.createElement('div');
+                orderStatus.innerHTML = `
+                    <div><strong>Status:</strong> ${order.status}</div>
+                    <div><strong>Total:</strong> $${order.total.toFixed(2)}</div>
+                `;
+                
+                orderHeader.appendChild(orderInfo);
+                orderHeader.appendChild(orderStatus);
+                orderElement.appendChild(orderHeader);
+                
+                // Order items
+                const orderItems = document.createElement('div');
+                orderItems.className = 'order-items';
+                
+                const itemsTitle = document.createElement('h4');
+                itemsTitle.textContent = 'Items:';
+                orderItems.appendChild(itemsTitle);
+                
+                order.items.forEach(item => {
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'order-item';
+                    
+                    const itemInfo = document.createElement('div');
+                    itemInfo.textContent = `${item.name} x ${item.quantity}`;
+                    
+                    const itemPrice = document.createElement('div');
+                    itemPrice.textContent = `$${(item.price * item.quantity).toFixed(2)}`;
+                    
+                    itemElement.appendChild(itemInfo);
+                    itemElement.appendChild(itemPrice);
+                    orderItems.appendChild(itemElement);
+                });
+                
+                orderElement.appendChild(orderItems);
+                
+                // Order actions
+                const orderActions = document.createElement('div');
+                orderActions.className = 'profile-actions';
+                
+                const viewDetailsButton = document.createElement('button');
+                viewDetailsButton.className = 'primary-button';
+                viewDetailsButton.textContent = 'View Details';
+                viewDetailsButton.addEventListener('click', () => this.viewOrderDetails(order.id));
+                
+                orderActions.appendChild(viewDetailsButton);
+                
+                if (order.status === 'Processing') {
+                    const trackOrderButton = document.createElement('button');
+                    trackOrderButton.className = 'secondary-button';
+                    trackOrderButton.textContent = 'Track Order';
+                    trackOrderButton.addEventListener('click', () => this.trackOrder(order.id));
+                    orderActions.appendChild(trackOrderButton);
+                }
+                
+                orderElement.appendChild(orderActions);
+                
+                return orderElement;
+            };
+            
+            // Render login form
+            UserProfile.prototype.renderLoginForm = function(container) {
+                const loginForm = document.createElement('div');
+                loginForm.className = 'login-form';
+                
+                const formTitle = document.createElement('h3');
+                formTitle.textContent = 'Login to Your Account';
+                loginForm.appendChild(formTitle);
+                
+                // Username field
+                const usernameGroup = document.createElement('div');
+                usernameGroup.className = 'form-group';
+                
+                const usernameLabel = document.createElement('label');
+                usernameLabel.textContent = 'Username:';
+                usernameLabel.setAttribute('for', 'username');
+                
+                const usernameInput = document.createElement('input');
+                usernameInput.type = 'text';
+                usernameInput.id = 'username';
+                usernameInput.placeholder = 'Enter your username';
+                
+                usernameGroup.appendChild(usernameLabel);
+                usernameGroup.appendChild(usernameInput);
+                loginForm.appendChild(usernameGroup);
+                
+                // Password field
+                const passwordGroup = document.createElement('div');
+                passwordGroup.className = 'form-group';
+                
+                const passwordLabel = document.createElement('label');
+                passwordLabel.textContent = 'Password:';
+                passwordLabel.setAttribute('for', 'password');
+                
+                const passwordInput = document.createElement('input');
+                passwordInput.type = 'password';
+                passwordInput.id = 'password';
+                passwordInput.placeholder = 'Enter your password';
+                
+                passwordGroup.appendChild(passwordLabel);
+                passwordGroup.appendChild(passwordInput);
+                loginForm.appendChild(passwordGroup);
+                
+                // Form actions
+                const formActions = document.createElement('div');
+                formActions.className = 'profile-actions';
+                
+                const loginButton = document.createElement('button');
+                loginButton.className = 'primary-button';
+                loginButton.textContent = 'Login';
+                loginButton.addEventListener('click', () => {
+                    const username = usernameInput.value.trim();
+                    const password = passwordInput.value.trim();
+                    
+                    if (username && password) {
+                        this.login(username, password);
+                    } else {
+                        this.showNotification('Please enter both username and password.', 'error');
+                    }
+                });
+                
+                const registerButton = document.createElement('button');
+                registerButton.className = 'secondary-button';
+                registerButton.textContent = 'Register';
+                registerButton.addEventListener('click', this.register.bind(this));
+                
+                formActions.appendChild(loginButton);
+                formActions.appendChild(registerButton);
+                loginForm.appendChild(formActions);
+                
+                container.appendChild(loginForm);
+            };
+            
+            // Show notification
+            UserProfile.prototype.showNotification = function(message, type) {
+                if (this.notification) {
+                    this.notification.textContent = message;
+                    this.notification.className = 'notification ' + type;
+                    this.notification.style.display = 'block';
+                    
+                    // Hide notification after 5 seconds
+                    setTimeout(() => {
+                        this.notification.style.display = 'none';
+                    }, 5000);
+                }
+            };
+            
+            // Login
+            UserProfile.prototype.login = function(username, password) {
+                // In a real app, this would make an API call to authenticate the user
+                // For this example, we'll simulate a successful login
+                
+                // Update user state
+                const userData = {
+                    isLoggedIn: true,
+                    username: username,
+                    email: username + '@example.com',
+                    fullName: 'John Doe',
+                    phone: '+1 (555) 123-4567'
+                };
+                
+                this.user = userData;
+                this.stateManager.setState('user', userData);
+                
+                // Publish user login event
+                this.eventBus.publish('user:login', userData);
+                
+                // Re-render the profile
+                this.render(document.getElementById('user-profile-container'));
+                
+                // Show success notification
+                this.showNotification('Login successful. Welcome, ' + username + '!', 'success');
+            };
+            
+            // Logout
+            UserProfile.prototype.logout = function() {
+                // Update user state
+                const userData = {
+                    isLoggedIn: false,
+                    username: 'Guest'
+                };
+                
+                this.user = userData;
+                this.stateManager.setState('user', userData);
+                
+                // Publish user logout event
+                this.eventBus.publish('user:logout', {});
+                
+                // Re-render the profile
+                this.render(document.getElementById('user-profile-container'));
+                
+                // Show success notification
+                this.showNotification('You have been logged out.', 'success');
+            };
+            
+            // Register
+            UserProfile.prototype.register = function() {
+                // In a real app, this would navigate to a registration form
+                alert('Registration functionality would be implemented here.');
+            };
+            
+            // Edit profile
+            UserProfile.prototype.editProfile = function() {
+                // In a real app, this would navigate to a profile edit form
+                alert('Profile editing functionality would be implemented here.');
+            };
+            
+            // Change password
+            UserProfile.prototype.changePassword = function() {
+                // In a real app, this would navigate to a password change form
+                alert('Password change functionality would be implemented here.');
+            };
+            
+            // View order details
+            UserProfile.prototype.viewOrderDetails = function(orderId) {
+                // In a real app, this would navigate to an order details page
+                alert('Viewing details for order: ' + orderId);
+            };
+            
+            // Track order
+            UserProfile.prototype.trackOrder = function(orderId) {
+                // In a real app, this would navigate to an order tracking page
+                alert('Tracking order: ' + orderId);
+            };
+            
+            // Subscribe to events
+            UserProfile.prototype.subscribeToEvents = function() {
+                const self = this;
+                
+                // Subscribe to user:login events
+                this.eventHandlers['user:login'] = this.eventBus.subscribe('user:login', function(data) {
+                    self.user = data;
+                    self.render(document.getElementById('user-profile-container'));
+                });
+                
+                // Subscribe to user:logout events
+                this.eventHandlers['user:logout'] = this.eventBus.subscribe('user:logout', function() {
+                    self.user = {
+                        isLoggedIn: false,
+                        username: 'Guest'
+                    };
+                    self.render(document.getElementById('user-profile-container'));
+                });
+            };
+            
+            // Clean up resources
+            UserProfile.prototype.destroy = function() {
+                // Unsubscribe from events
+                for (const event in this.eventHandlers) {
+                    if (this.eventHandlers.hasOwnProperty(event) && typeof this.eventHandlers[event] === 'function') {
+                        this.eventHandlers[event]();
+                    }
+                }
+                
+                // Clear event handlers
+                this.eventHandlers = {};
+            };
+            
+            // Mount function to be called by the container
+            function mount(containerId, eventBus, stateManager) {
+                const container = document.getElementById(containerId);
+                
+                if (!container) {
+                    console.error('Container element with id "' + containerId + '" not found');
+                    return;
+                }
+                
+                const userProfile = new UserProfile(eventBus, stateManager);
+                userProfile.render(container);
+                
+                return function unmount() {
+                    userProfile.destroy();
+                    container.innerHTML = '';
+                };
+            }
+            
+            // Expose the mount function
+            window.UserProfileMicrofrontend = {
+                mount: mount
+            };
+            
+            // If loaded directly (not via the container)
+            if (typeof window !== 'undefined' && !window.isLoaded) {
+                window.addEventListener('DOMContentLoaded', function() {
+                    mount('user-profile-container', mockEventBus, mockStateManager);
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
